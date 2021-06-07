@@ -1,0 +1,10 @@
+/Users/JaeWook/jaewook_workspace/jaewook-springboot/src/main/java/com/jaewook/domain/MemberExample.java
+/Users/JaeWook/jaewook_workspace/jaewook-springboot/src/main/java/com/jaewook/dao/MemberMapper.java
+/Users/JaeWook/jaewook_workspace/jaewook-springboot/src/main/java/com/jaewook/MemberApplication.java
+/Users/JaeWook/jaewook_workspace/jaewook-springboot/src/main/java/com/jaewook/util/CustomErrorType.java
+/Users/JaeWook/jaewook_workspace/jaewook-springboot/src/main/java/com/jaewook/SwaggerConfig.java
+/Users/JaeWook/jaewook_workspace/jaewook-springboot/src/main/java/com/jaewook/domain/Member.java
+/Users/JaeWook/jaewook_workspace/jaewook-springboot/src/main/java/com/jaewook/service/MemberService.java
+/Users/JaeWook/jaewook_workspace/jaewook-springboot/src/main/java/com/jaewook/controller/MemberController.java
+/Users/JaeWook/jaewook_workspace/jaewook-springboot/src/main/java/com/jaewook/util/SecurityConfig.java
+/Users/JaeWook/jaewook_workspace/jaewook-springboot/src/main/java/com/jaewook/service/MemberServiceImpl.java

@@ -1,0 +1,20 @@
+image: docker:19.03.8
+
+services:
+  - docker:19.03.8-dind
+
+before_script:
+  - docker login -u jwoh -p jwoh123! https://172.16.0.139
+  - docker container stop $(docker ps | awk '/ojt-cicd-test/{printf $1}') || true
+  - docker container rm $(docker ps | awk '/ojt-cicd-test/{printf $1}') || true
+
+build:
+  stage: build
+  script:
+    - docker build -t 172.16.0.139/ojt-cicd-test .
+    - docker push 172.16.0.139/ojt-cicd-test:latest
+
+deploy:
+  stage: deploy
+  script:
+    - docker run -d -p 9080:8080 172.16.0.139/ojt-cicd-test

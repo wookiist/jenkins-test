@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jaewook.dao.MemberMapper">
+  <resultMap id="BaseResultMap" type="com.jaewook.domain.Member">
+    <id column="idx" jdbcType="INTEGER" property="idx" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_pw" jdbcType="VARCHAR" property="userPw" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="login_yn" jdbcType="BIT" property="loginYn" />
+    <result column="login_count" jdbcType="INTEGER" property="loginCount" />
+    <result column="reg_date" jdbcType="TIMESTAMP" property="regDate" />
+    <result column="upd_date" jdbcType="TIMESTAMP" property="updDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    idx, user_id, user_pw, user_name, user_email, login_yn, login_count, reg_date, upd_date
+  </sql>
+  <select id="selectByExample" parameterType="com.jaewook.domain.MemberExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from "user"
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from "user"
+    where idx = #{idx,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from "user"
+    where idx = #{idx,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.jaewook.domain.MemberExample">
+    delete from "user"
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.jaewook.domain.Member">
+    insert into "user" (user_id, user_pw,
+      user_name, user_email, login_yn, 
+      login_count, reg_date, upd_date
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{userPw,jdbcType=VARCHAR},
+      #{userName,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, #{loginYn,jdbcType=BIT}, 
+      #{loginCount,jdbcType=INTEGER}, #{regDate,jdbcType=TIMESTAMP}, #{updDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jaewook.domain.Member">
+    insert into "user"
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userPw != null">
+        user_pw,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="loginYn != null">
+        login_yn,
+      </if>
+      <if test="loginCount != null">
+        login_count,
+      </if>
+      <if test="regDate != null">
+        reg_date,
+      </if>
+      <if test="updDate != null">
+        upd_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userPw != null">
+        #{userPw,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="loginYn != null">
+        #{loginYn,jdbcType=BIT},
+      </if>
+      <if test="loginCount != null">
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="regDate != null">
+        #{regDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updDate != null">
+        #{updDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.jaewook.domain.MemberExample" resultType="java.lang.Long">
+    select count(*) from "user"
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update "user"
+    <set>
+      <if test="record.idx != null">
+        idx = #{record.idx,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPw != null">
+        user_pw = #{record.userPw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userEmail != null">
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginYn != null">
+        login_yn = #{record.loginYn,jdbcType=BIT},
+      </if>
+      <if test="record.loginCount != null">
+        login_count = #{record.loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.regDate != null">
+        reg_date = #{record.regDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updDate != null">
+        upd_date = #{record.updDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update "user"
+    set idx = #{record.idx,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      user_pw = #{record.userPw,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      login_yn = #{record.loginYn,jdbcType=BIT},
+      login_count = #{record.loginCount,jdbcType=INTEGER},
+      reg_date = #{record.regDate,jdbcType=TIMESTAMP},
+      upd_date = #{record.updDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jaewook.domain.Member">
+    update "user"
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userPw != null">
+        user_pw = #{userPw,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="loginYn != null">
+        login_yn = #{loginYn,jdbcType=BIT},
+      </if>
+      <if test="loginCount != null">
+        login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="regDate != null">
+        reg_date = #{regDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updDate != null">
+        upd_date = #{updDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where idx = #{idx,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jaewook.domain.Member">
+    update "user"
+    set user_id = #{userId,jdbcType=VARCHAR},
+      user_pw = #{userPw,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      login_yn = #{loginYn,jdbcType=BIT},
+      login_count = #{loginCount,jdbcType=INTEGER},
+      reg_date = #{regDate,jdbcType=TIMESTAMP},
+      upd_date = #{updDate,jdbcType=TIMESTAMP}
+    where idx = #{idx,jdbcType=INTEGER}
+  </update>
+</mapper>
